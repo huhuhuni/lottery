@@ -272,5 +272,39 @@
         });
     })();
 </script>
+<script>
+    $('#excel-file').change(function (e) {
+    var files = e.target.files;
+    var fileReader = new FileReader();
+    fileReader.onload = function (ev) {
+    try {
+        var data = ev.target.result,
+        workbook = XLSX.read(data, {
+            type: 'binary'
+        }), // 以二进制流方式读取得到整份excel表格对象
+        persons = []; // 存储获取到的数据
+    } catch (e) {
+        console.log('文件类型不正确');
+        return;
+    }
+// 遍历每张表读取
+    for (var sheet in workbook.Sheets) {
+        if (workbook.Sheets.hasOwnProperty(sheet)) {
+            var fromTo = workbook.Sheets[sheet]['!ref'];
+            console.log(fromTo);
+            var datas = workbook.Sheets[sheet];
+        
+        // 如果有不规范数据可以在这里进行处理datas
+        
+             persons = persons.concat(XLSX.utils.sheet_to_json(datas));
+            break; // 只读了第一张表
+        }
+    }
+        console.log(persons);
+    };
+    // 以二进制方式打开文件
+    fileReader.readAsBinaryString(files[0]);
+   });
+</script>
 </body>
 </html>
