@@ -278,11 +278,13 @@
     var fileReader = new FileReader();
     fileReader.onload = function (ev) {
     try {
+        console.log('111');
         var data = ev.target.result,
         workbook = XLSX.read(data, {
             type: 'binary'
         }), // 以二进制流方式读取得到整份excel表格对象
         persons = []; // 存储获取到的数据
+        console.log('222');
     } catch (e) {
         console.log('文件类型不正确');
         return;
