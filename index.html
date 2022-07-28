@@ -303,6 +303,11 @@
         }
     }
         console.log(persons);
+        member = [];
+        for(var i = 0; i < persons.length; i++) {
+            member.push({"phone": i,"name":persons[i]['name']});
+        }
+        
     };
     // 以二进制方式打开文件
     fileReader.readAsBinaryString(files[0]);
